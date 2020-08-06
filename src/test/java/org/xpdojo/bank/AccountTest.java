@@ -31,6 +31,13 @@ public class AccountTest {
     }
 
     @Test
+    public void depositAndWithdrawalShouldResultInTheCorrectBalance() {
+        account.deposit(100);
+        account.withdrawal(50);
+        assertThat(account.balance()).isEqualTo(50);
+    }
+
+    @Test
     public void withdrawalFromEmptyAccountShouldNotBeAllowed() {
         Exception e = assertThrows(RuntimeException.class, () -> {
             createEmptyAccount().withdrawal(1);

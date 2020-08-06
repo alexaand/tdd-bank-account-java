@@ -19,6 +19,9 @@ public class Account {
     }
 
     public void withdrawal(int amount) {
-        throw new RuntimeException("Cannot withdraw - no overdraft available");
+        if (amount > balance) {
+            throw new RuntimeException("Cannot withdraw - no overdraft available");
+        }
+        balance -= amount;
     }
 }
