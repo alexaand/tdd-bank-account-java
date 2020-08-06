@@ -17,4 +17,8 @@ public class Account {
     public void deposit(int depositAmount) {
         balance += depositAmount;
     }
+
+    public void withdrawal(int amount) {
+        throw new RuntimeException("Cannot withdraw - no overdraft available");
+    }
 }

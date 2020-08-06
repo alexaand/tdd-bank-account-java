@@ -3,10 +3,12 @@ package org.xpdojo.bank;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.xpdojo.bank.Account.createEmptyAccount;
 
 public class AccountTest {
 
-    private final Account account = Account.createEmptyAccount();
+    private final Account account = createEmptyAccount();
 
     @Test
     public void newAccountShouldHaveZeroBalance() {
@@ -26,5 +28,17 @@ public class AccountTest {
         account.deposit(10);
         account.deposit(20);
         assertThat(account.balance()).isEqualTo(30);
+    }
+
+    @Test
+    public void withdrawalFromEmptyAccountShouldNotBeAllowed() {
+        Exception e = assertThrows(RuntimeException.class, () -> {
+            createEmptyAccount().withdrawal(1);
+        });
+
+        String expectedMsg = "Cannot withdraw - no overdraft available";
+        String actualMsg = e.getMessage();
+
+        assertTrue(actualMsg.contains(expectedMsg));
     }
 }
